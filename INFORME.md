@@ -29,3 +29,16 @@
   * *Resultado Esperado:* Costo base total de la consulta sin descuentos.
 * **Camino 2 (Con descuento por Obra Social/Prepaga):** * *Entrada:* Paciente ingresa "Swiss Medical" u "OSDE" -> Aplica filtro de tabla.
   * *Resultado Esperado:* Cálculo del porcentaje de descuento correspondiente y generación del saldo de copago.
+
+
+  ### 2.2. Prueba de Integración (Diseño)
+* [cite_start]**Objetivo:** Verificar la correcta transferencia de datos y consistencia en el flujo de información entre el módulo de "Inicio de Sesión" y el módulo de "Perfil de Usuario/Médico"[cite: 176, 178].
+* **Caso de Prueba CP-03:**
+  * [cite_start]*Entrada:* Autenticación exitosa del médico (DNI y Contraseña correctos)[cite: 188].
+  * [cite_start]*Resultado Esperado:* El sistema transfiere el ID de sesión de forma segura y carga correctamente en el perfil los datos asociados (Nombre, Apellido, Especialidad y Matrícula)[cite: 179, 205].
+
+### 2.5. Prueba de Interfaz (Diseño)
+* [cite_start]**Objetivo:** Validar el comportamiento de los componentes de la interfaz de usuario (UI) en el formulario de filtrado de obras sociales y prepagas para evitar errores de tipeo[cite: 137].
+* **Caso de Prueba CP-04:**
+  * *Entrada:* El usuario escribe "swis" en el campo dinámico de prestadora.
+  * *Resultado Esperado:* La interfaz despliega un menú interactivo, filtra las opciones coincidentes y resalta "Swiss Medical" para permitir su selección con un clic.
