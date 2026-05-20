@@ -19,7 +19,7 @@ Este repositorio contiene el desarrollo y el conjunto de pruebas para el sistema
 
 ### 1.3. Artefactos UML
 ![Diagrama de Clases UML](uml.png)
-![Diagrama de Clases UML](diagramadeclase.png)
+![Diagrama de Clases UML](img2.png)
 
 ### 1.4.Código Fuente y Ejecución 
 El código fuente está dividido en las carpetas `/backend` (Python/Django) y `/frontend` (Vue.js). 
