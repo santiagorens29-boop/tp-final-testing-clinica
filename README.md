@@ -19,8 +19,8 @@ Este repositorio contiene el desarrollo y el conjunto de pruebas para el sistema
 
 ### 1.3. Artefactos UML
 ![Diagrama de Clases UML](uml.png)
-![Diagrama de Clases UML](uml2.png)
+![Diagrama de Clases UML](diagramadeclase.png)
 
-### 1.4.Código Fuente y Ejecución [cite: 15, 16]
+### 1.4.Código Fuente y Ejecución 
 El código fuente está dividido en las carpetas `/backend` (Python/Django) y `/frontend` (Vue.js). 
 ***Link del proyecto:** https://github.com/santiagorens29-boop/tp-final-testing-clinica.git
