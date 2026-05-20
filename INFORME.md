@@ -42,3 +42,16 @@
 * **Caso de Prueba CP-04:**
   * *Entrada:* El usuario escribe "swis" en el campo dinámico de prestadora.
   * *Resultado Esperado:* La interfaz despliega un menú interactivo, filtra las opciones coincidentes y resalta "Swiss Medical" para permitir su selección con un clic.
+
+
+### 2.3. Prueba de Caja negra (Diseño)
+* **Objetivo:** Evaluar la respuesta del sistema ante el ingreso de datos inválidos en el formulario de registro de pacientes, basándose puramente en las especificaciones de negocio.
+* **Caso de Prueba CP-05:**
+  * *Entrada:* Se intenta guardar un paciente marcando la opción "Particular" pero con datos residuales de una obra social cargados en el formulario.
+  * *Resultado Esperado:* El sistema debe anular automáticamente el ingreso de datos de la prestadora, limpiar esos campos y procesar el alta como paciente particular de forma limpia.
+
+### 2.4. Prueba de Rendimiento (Diseño)
+* **Objetivo:** Medir el comportamiento, la latencia y la estabilidad del servidor al procesar la carga y filtrado de historias clínicas concurrentes.
+* **Caso de Prueba CP-06:**
+  * *Entrada:* Simular un escenario de carga donde se realizan peticiones simultáneas de consulta al endpoint de perfiles clínicos.
+  * *Resultado Esperado:* El tiempo de respuesta y procesamiento de las consultas debe mantenerse por debajo del límite establecido de 2 segundos, sin generar picos críticos de consumo de recursos ni caída de sesiones.
