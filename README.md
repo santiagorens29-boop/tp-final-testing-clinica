@@ -15,11 +15,11 @@ Este repositorio contiene el desarrollo y el conjunto de pruebas para el sistema
 
 #### Requerimientos No Funcionales:
 ***RNF1 (Seguridad):** Autenticación de usuarios para proteger datos sensibles.
-***RNF2 (Rendimiento):** El tiempo de carga de las consultas no debe superar los 2 segundos[cite: 12].
+***RNF2 (Rendimiento):** El tiempo de carga de las consultas no debe superar los 2 segundos.
 
-### 1.3.Artefactos UML
-El diagrama de clases principal del sistema se encuentra adjunto en la raíz del repositorio como `uml.png`.
+### 1.3. Artefactos UML
+![Diagrama de Clases UML](uml.png)
 
 ### 1.4.Código Fuente y Ejecución [cite: 15, 16]
-El código fuente está dividido en las carpetas `/backend` (Python/Django) y `/frontend` (Vue.js)[cite: 15]. 
+El código fuente está dividido en las carpetas `/backend` (Python/Django) y `/frontend` (Vue.js). 
 ***Link del proyecto:** https://github.com/santiagorens29-boop/tp-final-testing-clinica.git
