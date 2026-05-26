@@ -55,3 +55,17 @@
 * **Caso de Prueba CP-06:**
   * *Entrada:* Simular un escenario de carga donde se realizan peticiones simultáneas de consulta al endpoint de perfiles clínicos.
   * *Resultado Esperado:* El tiempo de respuesta y procesamiento de las consultas debe mantenerse por debajo del límite establecido de 2 segundos, sin generar picos críticos de consumo de recursos ni caída de sesiones.
+
+
+## 3. Planificar la ejecución de las Pruebas y Documentación
+
+### 3.1. Planificación del Cronograma de Ejecución
+Para garantizar un proceso de testing ordenado, se estableció el siguiente cronograma de ejecución interna previo a la fecha límite del Sprint 3 (27/05/2026):
+
+| Fecha de Ejecución | Código de Prueba | Tipo de Prueba | Componente / Módulo Enfocado |
+| :--- | :--- | :--- | :--- |
+| 21/05/2026 | CP-01 y CP-02 | Componentes y Camino | Validación de Email y Cálculo de Copagos (`models.py`) |
+| 22/05/2026 | CP-03 | Integración | Flujo de Login y pasaje de datos al Perfil del Médico |
+| 23/05/2026 | CP-04 | Interfaz (UI) | Formulario Predictivo de Obras Sociales (Vue.js) |
+| 24/05/2026 | CP-05 | Caja Negra | Validación de Registro de Pacientes con datos redundantes |
+| 25/05/2026 | CP-06 | Rendimiento | Simulación de carga concurrente en endpoint de perfiles clínicos |
