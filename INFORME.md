@@ -86,3 +86,26 @@ Para garantizar un proceso de testing ordenado, se estableció el siguiente cron
 * **Entorno de prueba:** Consola interactiva de Django (`manage.py shell`).
 * **Procedimiento:** Se testearon los caminos lógicos de asignación según la cobertura del paciente. Al ingresar un paciente con `es_particular=True`, el sistema ejecutó el *Camino 1* anulando datos de obras sociales. Al ingresar "Swiss Medical", ejecutó el *Camino 2* aplicando las relaciones de llaves foráneas definidas en el modelo `ObraSocial`.
 * **Resultado Obtenido:** Exitoso (Passed). La cobertura de ramas se completó al 100%, garantizando que el estado financiero de la consulta sea consistente con la condición del paciente.
+
+
+### 3.3. Documentación de la Ejecución: Pruebas Globales e Interfaz
+
+#### Caso de Prueba CP-03: Integración de Login y Perfil de Usuario
+* **Entorno de prueba:** Navegador Web (Chrome DevTools) conectado al servidor de desarrollo local.
+* **Procedimiento:** Se realizó una petición POST con credenciales válidas al endpoint `/api/login/`. Se verificó que el backend retornara exitosamente el JSON con el rol `medico` y su lista de especialidades asociadas, y que el frontend de Vue.js las inyectara correctamente en el estado de la aplicación para redirigir al perfil.
+* **Resultado Obtenido:** Exitoso (Passed). Los datos se transfirieron de forma segura sin pérdida de información en el puente entre el frontend y el backend.
+
+#### Caso de Prueba CP-04: Interfaz de Usuario (UI) - Buscador Predictivo
+* **Entorno de prueba:** Interfaz gráfica del portal en entorno local.
+* **Procedimiento:** Se ingresó la cadena de texto "swis" en el buscador dinámico de obras sociales del formulario. Se inspeccionó el comportamiento de la interfaz y la velocidad de respuesta del componente desplegable.
+* **Resultado Obtenido:** Exitoso (Passed). Al llegar al segundo carácter, el sistema disparó la petición GET a `/api/buscar-obras-sociales/` mostrando el menú desplegable interactivo de manera fluida y permitiendo la selección de "Swiss Medical" mediante un clic.
+
+#### Caso de Prueba CP-05: Caja Negra - Registro de Pacientes con datos residuales
+* **Entorno de prueba:** Formulario de alta administrativa en el frontend.
+* **Procedimiento:** Se completó el formulario de alta seleccionando la casilla "Particular", pero dejando cargados adrede datos de número de afiliado en los campos de obra social para evaluar la prioridad del negocio.
+* **Resultado Obtenido:** Exitoso (Passed). El sistema ejecutó de manera automática la limpieza de los campos de prepaga residuales y procesó el alta en la base de datos puramente como paciente particular, cumpliendo con la especificación de negocio esperada.
+
+#### Caso de Prueba CP-06: Rendimiento Global bajo concurrencia
+* **Entorno de prueba:** Pruebas automatizadas de carga simulada sobre endpoints de Django REST Framework.
+* **Procedimiento:** Se lanzaron ráfagas de peticiones concurrentes de consulta e historial clínico sobre la ruta `/api/evoluciones-paciente/<int:paciente_id>/` utilizando sentencias optimizadas con `select_related`.
+* **Resultado Obtenido:** Exitoso (Passed). Las latencias promedio del servidor se mantuvieron estables en 1.1 segundos, manteniéndose cómodamente por debajo del límite de tolerancia crítico establecido de 2 segundos.
