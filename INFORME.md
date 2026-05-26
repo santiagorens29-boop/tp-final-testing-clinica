@@ -69,3 +69,20 @@ Para garantizar un proceso de testing ordenado, se estableció el siguiente cron
 | 23/05/2026 | CP-04 | Interfaz (UI) | Formulario Predictivo de Obras Sociales (Vue.js) |
 | 24/05/2026 | CP-05 | Caja Negra | Validación de Registro de Pacientes con datos redundantes |
 | 25/05/2026 | CP-06 | Rendimiento | Simulación de carga concurrente en endpoint de perfiles clínicos |
+
+### 3.2. Documentación de la Ejecución: Lógica Interna (Backend)
+
+#### Caso de Prueba CP-01: Validación de formato de correo electrónico
+* **Entorno de prueba:** Entorno de desarrollo local, Django Test Framework (Unittest).
+* **Procedimiento:** Se ejecutó un test unitario sobre el validador del campo `email` del modelo `Paciente` enviando un string con formato válido.
+* **Resultado Obtenido:** Exitoso (Passed). El sistema procesó la entrada "santiago@ejemplo.com" devolviendo True y permitiendo el flujo de registro sin lanzar excepciones.
+
+#### Caso de Prueba CP-02: Validación de formato de correo inválido
+* **Entorno de prueba:** Entorno de desarrollo local, Django Test Framework (Unittest).
+* **Procedimiento:** Se forzó la inserción del string "santiago.com" (sin el carácter @) en el campo `email` del serializer `TurnoReservaSerializer`.
+* **Resultado Obtenido:** Exitoso (Passed). El validador del componente capturó el error de sintaxis correctamente y arrojó un `ValidationError`, impidiendo el guardado en la base de datos.
+
+#### Caso de Prueba CP-06 (Camino): Cobertura de ramas (if/else) en cálculo de copagos
+* **Entorno de prueba:** Consola interactiva de Django (`manage.py shell`).
+* **Procedimiento:** Se testearon los caminos lógicos de asignación según la cobertura del paciente. Al ingresar un paciente con `es_particular=True`, el sistema ejecutó el *Camino 1* anulando datos de obras sociales. Al ingresar "Swiss Medical", ejecutó el *Camino 2* aplicando las relaciones de llaves foráneas definidas en el modelo `ObraSocial`.
+* **Resultado Obtenido:** Exitoso (Passed). La cobertura de ramas se completó al 100%, garantizando que el estado financiero de la consulta sea consistente con la condición del paciente.
