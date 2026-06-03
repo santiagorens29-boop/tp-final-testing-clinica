@@ -145,3 +145,16 @@ Para coordinar el testeo integral del sistema sin interferir con los datos de pr
 | :--- | :--- | :--- | :--- |
 | 28/05/2026 | E2E-01 | Sistema (End-to-End) | Ciclo completo: Login, Sala de Espera y Bloqueo de Evolución Médica |
 | 29/05/2026 | E2E-02 | Sistema (End-to-End) | Ciclo completo: Reserva de Turno Autogestiva y Validación de Token OTP |
+
+
+### 4.3. Documentación de Resultados de la Ejecución (End-to-End)
+
+#### Registro de Ejecución - Escenario E2E-01: Autenticación y Carga de Evolución Médica
+* **Entorno de prueba:** Servidores locales interconectados (Frontend en puerto 5173, Backend en puerto 8000).
+* **Procedimiento:** Se inició el recorrido ingresando las credenciales de un médico. Se interactuó con la sala de espera seleccionando un turno, se redactó la consulta médica en el editor de texto y se envió el formulario para activar el guardado y el método `save()` restrictivo del modelo.
+* **Resultado Obtenido:** Exitoso (Passed). El backend procesó el login exitosamente y el frontend mapeó el rol. Al guardar la evolución, se verificó en la base de datos que el registro se creó con `bloqueado=True` y el estado del turno cambió inmediatamente a 'atendido', bloqueando de forma legal cualquier intento de edición posterior.
+
+#### Registro de Ejecución - Escenario E2E-02: Reserva de Turno Autogestiva con Validación OTP
+* **Entorno de prueba:** Portal público de autogestión de turnos (Stage local).
+* **Procedimiento:** Un usuario seleccionó un horario libre generado por `ConfiguracionHorario`. Se ingresó un DNI válido, se capturó el código de 6 dígitos simulado en la consola mediante `CodigoVerificacion` y se ingresó en el campo de validación de la interfaz para completar la reserva mediante el `TurnoReservaSerializer`.
+* **Resultado Obtenido:** Exitoso (Passed). El sistema reconoció los datos del paciente existente, validó el token antes de los 10 minutos de expiración de la regla de seguridad y confirmó la reserva, pasando el turno a estado 'programado' y eliminando el código OTP de forma limpia.
