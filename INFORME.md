@@ -137,3 +137,11 @@ Las pruebas de sistema evalúan el comportamiento del software de forma integral
   4. El backend genera un token de 6 dígitos en `CodigoVerificacion` y lo envía al correo.
   5. El usuario ingresa el token recibido y confirma la operación.
 * **Resultado Esperado:** El sistema da de alta al turno con estado 'programado' y consume el token de verificación, reflejando la actualización en la grilla horaria de forma inmediata.
+
+### 4.2. Planificación del Cronograma de Ejecución (E2E)
+Para coordinar el testeo integral del sistema sin interferir con los datos de producción de la clínica, se estableció un cronograma de ejecución secuencial en el entorno de Stage previo a la entrega final del Sprint 4 (03/06/2026):
+
+| Fecha de Ejecución | Código de Escenario | Tipo de Prueba | Enfoque del Flujo de Sistema |
+| :--- | :--- | :--- | :--- |
+| 28/05/2026 | E2E-01 | Sistema (End-to-End) | Ciclo completo: Login, Sala de Espera y Bloqueo de Evolución Médica |
+| 29/05/2026 | E2E-02 | Sistema (End-to-End) | Ciclo completo: Reserva de Turno Autogestiva y Validación de Token OTP |
