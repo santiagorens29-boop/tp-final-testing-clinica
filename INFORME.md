@@ -109,3 +109,31 @@ Para garantizar un proceso de testing ordenado, se estableció el siguiente cron
 * **Entorno de prueba:** Pruebas automatizadas de carga simulada sobre endpoints de Django REST Framework.
 * **Procedimiento:** Se lanzaron ráfagas de peticiones concurrentes de consulta e historial clínico sobre la ruta `/api/evoluciones-paciente/<int:paciente_id>/` utilizando sentencias optimizadas con `select_related`.
 * **Resultado Obtenido:** Exitoso (Passed). Las latencias promedio del servidor se mantuvieron estables en 1.1 segundos, manteniéndose cómodamente por debajo del límite de tolerancia crítico establecido de 2 segundos.
+
+
+## 4. Pruebas de Sistema (End-to-End) - Sprint 4
+
+### 4.1. Diseño de Escenarios de Prueba de Sistema
+Las pruebas de sistema evalúan el comportamiento del software de forma integral, simulando el recorrido completo del usuario desde la interfaz hasta la base de datos.
+
+#### Escenario E2E-01: Flujo Completo de Autenticación y Carga de Evolución Médica
+* **Objetivo:** Garantizar que un médico pueda loguearse, identificar a su paciente en sala de espera, redactar una consulta y bloquear legalmente la historia clínica.
+* **Precondición:** El usuario "médico" existe en la base de datos de Auth, el turno está en estado "espera" y el paciente tiene un perfil clínico creado.
+* **Paso a Paso (Recorrido):**
+  1. El médico ingresa sus credenciales en la pantalla de Login (Vue.js).
+  2. El sistema valida mediante POST a `/api/login/`, genera la sesión y redirige a la agenda del día.
+  3. El médico selecciona al paciente en estado "espera" y accede al historial clínico.
+  4. Redacta el motivo y descripción de la consulta, y presiona "Guardar Evolución".
+  5. El backend ejecuta la restricción de bloqueo legal (`bloqueado=True`) en `models.py` e impacta los cambios de estado en la base de datos.
+* **Resultado Esperado:** La evolución se almacena correctamente, queda protegida contra futuras modificaciones y el estado del turno pasa automáticamente a 'atendido'.
+
+#### Escenario E2E-02: Flujo Autogestivo de Reserva de Turno con Validación OTP
+* **Objetivo:** Validar que un paciente pueda consultar disponibilidad de turnos, solicitar un código de seguridad por email y confirmar una reserva en tiempo real.
+* **Precondición:** El médico posee configurada una agenda activa en `ConfiguracionHorario`.
+* **Paso a Paso (Recorrido):**
+  1. El paciente selecciona médico y fecha en el Portal de Turnos.
+  2. El sistema consume la API `/api/agenda/` y muestra los intervalos libres.
+  3. El paciente ingresa su DNI y presiona "Solicitar Código".
+  4. El backend genera un token de 6 dígitos en `CodigoVerificacion` y lo envía al correo.
+  5. El usuario ingresa el token recibido y confirma la operación.
+* **Resultado Esperado:** El sistema da de alta al turno con estado 'programado' y consume el token de verificación, reflejando la actualización en la grilla horaria de forma inmediata.
