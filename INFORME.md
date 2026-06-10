@@ -158,3 +158,25 @@ Para coordinar el testeo integral del sistema sin interferir con los datos de pr
 * **Entorno de prueba:** Portal público de autogestión de turnos (Stage local).
 * **Procedimiento:** Un usuario seleccionó un horario libre generado por `ConfiguracionHorario`. Se ingresó un DNI válido, se capturó el código de 6 dígitos simulado en la consola mediante `CodigoVerificacion` y se ingresó en el campo de validación de la interfaz para completar la reserva mediante el `TurnoReservaSerializer`.
 * **Resultado Obtenido:** Exitoso (Passed). El sistema reconoció los datos del paciente existente, validó el token antes de los 10 minutos de expiración de la regla de seguridad y confirmó la reserva, pasando el turno a estado 'programado' y eliminando el código OTP de forma limpia.
+
+
+---
+
+## 🚀 Pruebas de Software - Defensa Práctica (Sprint Final)
+
+Para la defensa práctica de la materia, se inyectaron y controlaron excepciones específicas en el backend (Django) para validar la robustez del sistema ante datos corruptos y asegurar las reglas de negocio críticas.
+
+### 1. Caso de Prueba: Formato de Parámetro Corrupto (Email sin @)
+* **Descripción:** Se evalúa la respuesta del sistema cuando un usuario intenta confirmar una reserva forzando un formato sintáctico de correo inválido desde el frontend.
+* **Comportamiento del Backend:** La API intercepta la petición en la vista de confirmación, valida el parámetro y corta la ejecución lanzando un `ValueError` controlado antes de procesar la solicitud en la base de datos.
+* **Línea de excepción en Terminal (Django):**
+  ```text
+  ValueError: Error de Parámetro (Sprint Final): El correo ingresado no posee un formato sintáctico válido.
+
+### 2. Caso de Prueba: Error de Lógica / Sistema (Adulteración de Historia Clínica)
+* **Descripción:** Se audita la seguridad e inmutabilidad legal de los registros de salud (Sprint 4). Se simula un intento por parte de un usuario o atacante de editar o modificar una evolución médica que ya fue firmada y cerrada.
+* **Comportamiento del Backend:** La función de creación de evoluciones analiza el texto ingresado en la descripción. Si detecta intenciones de alteración de registros históricos ("editar" o "modificar"), bloquea el proceso levantando un PermissionError.
+
+* **Línea de excepción en Terminal (Django):**
+  ```text
+  PermissionError: Error de Lógica (Sprint Final): Las evoluciones firmadas y bloqueadas no admiten modificaciones.
